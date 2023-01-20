@@ -1,4 +1,4 @@
 module.exports = {
-  extends: ["turbo", "prettier"],
+  extends: ["eslint:recommended", "turbo", "prettier"],
   rules: {},
 };

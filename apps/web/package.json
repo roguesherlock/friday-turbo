@@ -12,5 +12,9 @@
     "eslint": "^8.32.0",
     "eslint-config-custom": "workspace:*",
     "nuxt": "^3.0.0"
+  },
+  "dependencies": {
+    "sync": "workspace:*",
+    "socket.io-client": "^4.5.4"
   }
 }

@@ -1,0 +1,27 @@
+{
+  "name": "sync",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "files": [
+    "dist"
+  ],
+  "source": "./src/index.ts",
+  "main": "./dist/main.js",
+  "types": "dist/types.d.ts",
+  "scripts": {
+    "dev": "parcel watch",
+    "build": "parcel build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/core": "^2.8.3",
+    "@parcel/packager-ts": "^2.8.3",
+    "@parcel/transformer-typescript-types": "^2.8.3",
+    "eslint-config-custom": "workspace:*",
+    "parcel": "latest",
+    "typescript": "latest"
+  }
+}
