@@ -1,4 +1,4 @@
 module.exports = {
-  extends: ["@antfu", "turbo", "prettier"],
+  extends: ["turbo", "prettier"],
   rules: {},
 };

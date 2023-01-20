@@ -1,5 +1,5 @@
-import * as express from "express";
 import { createServer } from "http";
+import express from "express";
 import { Server } from "socket.io";
 import { db } from "./db";
 import { syncHandler } from "./sync";

@@ -1,3 +1,3 @@
-export const syncHandler = (payload) => {
+export const syncHandler = (payload: any) => {
   console.log(payload);
 };
