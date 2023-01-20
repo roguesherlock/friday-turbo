@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Device {
+  id           Int          @id @default(autoincrement())
+  deviceId     String       @unique
+  meta         Json?
+  userId       Int?
+  user         User?        @relation(fields: [userId], references: [id])
+  packs        Pack[]
+  syncStatuses SyncStatus[]
+}
+
+model Pack {
+  id           Int          @id @default(autoincrement())
+  packId       String       @unique
+  scopeId      String?
+  ioState      Int          @default(0)
+  value        Bytes
+  deviceId     String?
+  device       Device?      @relation(fields: [deviceId], references: [deviceId])
+  syncStatuses SyncStatus[]
+  user         User?        @relation(fields: [userId], references: [id])
+  userId       Int?
+}
+
+model SyncStatus {
+  id       Int     @id @default(autoincrement())
+  deviceId Int?
+  packId   Int?
+  ioState  Int
+  device   Device? @relation(fields: [deviceId], references: [id])
+  pack     Pack?   @relation(fields: [packId], references: [id])
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+  devices Device[]
+  packs   Pack[]
+}
