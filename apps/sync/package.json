@@ -23,5 +23,8 @@
     "eslint-config-custom": "workspace:*",
     "parcel": "latest",
     "typescript": "latest"
+  },
+  "dependencies": {
+    "idb": "^7.1.1"
   }
 }

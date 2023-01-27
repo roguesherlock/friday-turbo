@@ -43,8 +43,11 @@ importers:
       '@parcel/packager-ts': ^2.8.3
       '@parcel/transformer-typescript-types': ^2.8.3
       eslint-config-custom: workspace:*
+      idb: ^7.1.1
       parcel: latest
       typescript: latest
+    dependencies:
+      idb: 7.1.1
     devDependencies:
       '@parcel/core': 2.8.3
       '@parcel/packager-ts': 2.8.3_@parcel+core@2.8.3
@@ -4359,6 +4362,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       safer-buffer: 2.1.2
+
+  /idb/7.1.1:
+    resolution: {integrity: sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ==}
+    dev: false
 
   /ieee754/1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
