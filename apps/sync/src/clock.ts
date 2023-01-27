@@ -76,11 +76,11 @@ function utcNow() {
   return Date.parse(new Date().toISOString())
 }
 
-export function isValidDate(d: unknown) {
+function isValidDate(d: unknown) {
   return typeof d === "number" && !isNaN(new Date(d).getTime())
 }
 
-export function max<T>(...args: T[]) {
+function max<T>(...args: T[]) {
   return args.reduce((pMax, curr) => (pMax > curr ? pMax : curr), args[0])
 }
 
@@ -92,3 +92,4 @@ export function newClock(clockString?: string): Clock {
   }
   return new Clock()
 }
+export default Clock
