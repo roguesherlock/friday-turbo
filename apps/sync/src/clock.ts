@@ -14,9 +14,9 @@ export class Clock {
   private _timestamp: number
   private _counter: number
 
-  constructor() {
-    this._timestamp = utcNow()
-    this._counter = 0
+  constructor(timestamp?: number, counter?: number) {
+    this._timestamp = timestamp ?? utcNow()
+    this._counter = counter ?? 0
   }
 
   get timestamp() {
@@ -61,7 +61,7 @@ export class Clock {
     }
   }
 
-  unpack(clockString: string) {
+  static unpack(clockString: string) {
     const d = clockString.split("_")[0]
     if (isValidDate(d)) return d
     return null
@@ -84,6 +84,11 @@ export function max<T>(...args: T[]) {
   return args.reduce((pMax, curr) => (pMax > curr ? pMax : curr), args[0])
 }
 
-export function init(): Clock {
+export function newClock(clockString?: string): Clock {
+  if (clockString) {
+    const [t, c] = clockString.split("_").map((d) => Number(d))
+    if (t && c) return new Clock(t, c)
+    else throw new Error("Invalid clock string")
+  }
   return new Clock()
 }
