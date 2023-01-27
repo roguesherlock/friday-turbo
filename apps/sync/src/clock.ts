@@ -11,11 +11,11 @@
 // if our HLC timestamp is after the event’s HLC timestamp, keep our timestamp and increment our counter
 // last, if the event’s HLC timestamp is larger than our timestamp, use it’s timestamp and set our counter to 1 larger than its count
 export class Clock {
-  private _timestamp: Date
+  private _timestamp: number
   private _counter: number
 
   constructor() {
-    this._timestamp = new Date()
+    this._timestamp = utcNow()
     this._counter = 0
   }
 
@@ -32,7 +32,7 @@ export class Clock {
       this.updateWithOtherClock(clock)
       return
     }
-    const now = new Date()
+    const now = utcNow()
     const timestamp = this._timestamp
     this._timestamp = max(now, timestamp)
     if ((this._timestamp = timestamp)) {
@@ -43,7 +43,7 @@ export class Clock {
   }
 
   updateWithOtherClock(otherClock: Clock) {
-    const now = new Date()
+    const now = utcNow()
     const timestamp = this._timestamp
     this._timestamp = max(now, timestamp, otherClock.timestamp)
     switch (true) {
@@ -62,18 +62,22 @@ export class Clock {
   }
 
   unpack(clockString: string) {
-    const d = new Date(clockString.split("_")[0])
+    const d = clockString.split("_")[0]
     if (isValidDate(d)) return d
     return null
   }
 
   pack() {
-    return `${this._timestamp.toJSON}_${this._counter}`
+    return `${this._timestamp}_${this._counter}`
   }
 }
 
+function utcNow() {
+  return Date.parse(new Date().toISOString())
+}
+
 export function isValidDate(d: unknown) {
-  return d instanceof Date && !isNaN(d.getTime())
+  return typeof d === "number" && !isNaN(new Date(d).getTime())
 }
 
 export function max<T>(...args: T[]) {
