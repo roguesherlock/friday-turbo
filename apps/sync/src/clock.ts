@@ -30,7 +30,7 @@ export class Clock {
   update(clock?: Clock) {
     if (clock) {
       this.updateWithOtherClock(clock)
-      return
+      return this
     }
     const now = utcNow()
     const timestamp = this._timestamp
@@ -40,6 +40,7 @@ export class Clock {
     } else {
       this._counter = 0
     }
+    return this
   }
 
   updateWithOtherClock(otherClock: Clock) {

@@ -42,7 +42,9 @@ importers:
   apps/sync:
     specifiers:
       '@parcel/core': ^2.8.3
+      '@parcel/optimizer-blob-url': ^2.8.3
       '@parcel/packager-ts': ^2.8.3
+      '@parcel/transformer-inline': ^2.8.3
       '@parcel/transformer-typescript-types': ^2.8.3
       eslint-config-custom: workspace:*
       idb: ^7.1.1
@@ -52,7 +54,9 @@ importers:
       idb: 7.1.1
     devDependencies:
       '@parcel/core': 2.8.3
+      '@parcel/optimizer-blob-url': 2.8.3_@parcel+core@2.8.3
       '@parcel/packager-ts': 2.8.3_@parcel+core@2.8.3
+      '@parcel/transformer-inline': 2.8.3_@parcel+core@2.8.3
       '@parcel/transformer-typescript-types': 2.8.3_ubodinrdmefzugtpa6dhrz7lqu
       eslint-config-custom: link:../../packages/eslint-config-custom
       parcel: 2.8.3
@@ -1587,6 +1591,16 @@ packages:
       semver: 5.7.1
     dev: true
 
+  /@parcel/optimizer-blob-url/2.8.3_@parcel+core@2.8.3:
+    resolution: {integrity: sha512-sbLrd3Qi5lOUbGu3kN38Hb+E0HoAzh5JXfFO2imDAVFM388d5fNVYbP6LEJ4FW1et4eSjBBQMJ9etr0kuLwoWg==}
+    engines: {node: '>= 12.0.0', parcel: ^2.8.3}
+    dependencies:
+      '@parcel/plugin': 2.8.3_@parcel+core@2.8.3
+      '@parcel/utils': 2.8.3
+    transitivePeerDependencies:
+      - '@parcel/core'
+    dev: true
+
   /@parcel/optimizer-css/2.8.3_@parcel+core@2.8.3:
     resolution: {integrity: sha512-JotGAWo8JhuXsQDK0UkzeQB0UR5hDAKvAviXrjqB4KM9wZNLhLleeEAW4Hk8R9smCeQFP6Xg/N/NkLDpqMwT3g==}
     engines: {node: '>= 12.0.0', parcel: ^2.8.3}
@@ -1901,6 +1915,15 @@ packages:
       nullthrows: 1.1.1
     dev: true
 
+  /@parcel/transformer-inline/2.8.3_@parcel+core@2.8.3:
+    resolution: {integrity: sha512-yY4joCxJPx0i7gu7M7rv+uINN+gxCOUYtLR9IZUdhLoRzIiJmFcxgI21z+yR9xKTYJ9HEp8DVvZ/oae90Oaa6w==}
+    engines: {node: '>= 12.0.0', parcel: ^2.8.3}
+    dependencies:
+      '@parcel/plugin': 2.8.3_@parcel+core@2.8.3
+    transitivePeerDependencies:
+      - '@parcel/core'
+    dev: true
+
   /@parcel/transformer-js/2.8.3_@parcel+core@2.8.3:
     resolution: {integrity: sha512-9Qd6bib+sWRcpovvzvxwy/PdFrLUXGfmSW9XcVVG8pvgXsZPFaNjnNT8stzGQj1pQiougCoxMY4aTM5p1lGHEQ==}
     engines: {node: '>= 12.0.0', parcel: ^2.8.3}
@@ -2025,6 +2048,18 @@ packages:
       typescript: 4.9.4
     dev: true
 
+  /@parcel/types/2.8.3:
+    resolution: {integrity: sha512-FECA1FB7+0UpITKU0D6TgGBpGxYpVSMNEENZbSJxFSajNy3wrko+zwBKQmFOLOiPcEtnGikxNs+jkFWbPlUAtw==}
+    dependencies:
+      '@parcel/cache': 2.8.3_@parcel+core@2.8.3
+      '@parcel/diagnostic': 2.8.3
+      '@parcel/fs': 2.8.3_@parcel+core@2.8.3
+      '@parcel/package-manager': 2.8.3_@parcel+core@2.8.3
+      '@parcel/source-map': 2.1.1
+      '@parcel/workers': 2.8.3_@parcel+core@2.8.3
+      utility-types: 3.10.0
+    dev: true
+
   /@parcel/types/2.8.3_@parcel+core@2.8.3:
     resolution: {integrity: sha512-FECA1FB7+0UpITKU0D6TgGBpGxYpVSMNEENZbSJxFSajNy3wrko+zwBKQmFOLOiPcEtnGikxNs+jkFWbPlUAtw==}
     dependencies:
@@ -2072,7 +2107,7 @@ packages:
       '@parcel/core': 2.8.3
       '@parcel/diagnostic': 2.8.3
       '@parcel/logger': 2.8.3
-      '@parcel/types': 2.8.3_@parcel+core@2.8.3
+      '@parcel/types': 2.8.3
       '@parcel/utils': 2.8.3
       chrome-trace-event: 1.0.3
       nullthrows: 1.1.1
