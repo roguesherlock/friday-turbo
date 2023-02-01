@@ -1,4 +1,4 @@
-import logger from "./logger"
+import logger from "~/lib/logger"
 
 export enum WorkerState {
   STALE = 1,
@@ -19,10 +19,6 @@ export type Message = Record<string, any> & {
     | "push"
     | `__${any}`
   result: any
-}
-
-export type MessageRequest = Omit<Message, "result"> & {
-  args: any
 }
 
 type PromiseResolver = {
