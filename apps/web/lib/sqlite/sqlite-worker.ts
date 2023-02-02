@@ -1,7 +1,9 @@
+//@ts-ignore
 import initSqlite3 from "./sqlite3.mjs"
 //@ts-ignore
-import initSql from "./sql/init.sql"
-import { DocumentAPI, DocumentSchema } from "~/lib/persistence/db.js"
+import initSql from "./sql/init.sql?raw"
+import { callHandler, hasHandler } from "../persistence/handlers.js"
+import "../persistence/document.js"
 
 const sqlite3 = await initSqlite3()
 console.log(
@@ -9,26 +11,36 @@ console.log(
   sqlite3.capi.sqlite3_libversion(),
   sqlite3.capi.sqlite3_sourceid()
 )
-sqlite3.initWorker1API()
-const db = new sqlite3.oo1.DB("/friday.sqlite3", "ct")
 
-db.exec(initSql)
+const db = new sqlite3.oo1.DB("friday.db", "ct")
+db.exec({
+  sql: initSql,
+})
 
 const handleMessage = async (event: any) => {
   const msg = event.data as Record<string, any>
-  const { id, name, catchErrors } = msg
+  const { id, name, args } = msg
+  if (hasHandler(name)) {
+    const data = await callHandler(name, db, args)
+    postMessage({
+      id,
+      type: "reply",
+      result: data,
+    })
+  }
   switch (name) {
-    case "document.create": {
+    case "": {
       return
     }
     default: {
-      return {
+      postMessage({
         id,
         type: "error",
         result: new Error("Invalid command!"),
-      }
+      })
     }
   }
 }
 
 addEventListener("message", handleMessage)
+postMessage({ type: "connect" })

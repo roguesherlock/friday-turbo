@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS "atoms" (
   "id" INTEGER NOT NULL,
   "recordId" BLOB NOT NULL,
-  "scopeId" BLOB NOT NULL,
+  "scopeId" BLOB,
   "objectId" BLOB NOT NULL,
   "attribute" TEXT NOT NULL,
   "value" BLOB,
@@ -13,7 +13,7 @@ CREATE INDEX index_atoms_on_recordid on "atoms"(recordId);
 CREATE TABLE IF NOT EXISTS "blobs" (
   "id" INTEGER NOT NULL,
   "blobId" BLOB NOT NULL UNIQUE,
-  "scopeId" BLOB NOT NULL,
+  "scopeId" BLOB,
   "localPath" TEXT,
   "serverURL" TEXT,
   "size" INTEGER NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS "records" (
   "packId" BLOB,
   "clock" BLOB NOT NULL,
   "deviceId" BLOB NOT NULL,
-  "scopeId" BLOB NOT NULL,
+  "scopeId" BLOB,
   "type" INTEGER NOT NULL,
   "ioDirection" INTEGER NOT NULL,
   "ioState" INTEGER NOT NULL,
@@ -44,15 +44,15 @@ CREATE INDEX index_records_on_scopeid_type on "records"(scopeId, type);
 CREATE INDEX index_records_on_recordid on "records"(recordId);
 CREATE INDEX index_records_on_iodirection_iostate on "records"(ioDirection, ioState, clock);
 CREATE INDEX index_records_on_clock on "records"(clock);
-CREATE VIEW "vRecords" AS
-SELECT "records".*,
-  "objectId",
-  "attribute",
-  "ivalue",
-  "dvalue",
-  "svalue",
-  "bvalue",
-  "hint"
-FROM "records"
-  LEFT OUTER JOIN "atoms" ON (
-    "records"."recordId" = "atoms"."recordId";
+-- CREATE VIEW "vRecords" AS
+-- SELECT "records".*,
+--   "objectId",
+--   "attribute",
+--   "ivalue",
+--   "dvalue",
+--   "svalue",
+--   "bvalue",
+--   "hint"
+-- FROM "records"
+--   LEFT OUTER JOIN "atoms" ON (
+--     "records"."recordId" = "atoms"."recordId";

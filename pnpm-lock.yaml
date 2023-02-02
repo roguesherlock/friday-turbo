@@ -67,6 +67,7 @@ importers:
       '@fontsource/inter': ^4.5.15
       '@nuxt/eslint-config': ^0.1.1
       '@nuxtjs/tailwindcss': ^6.3.0
+      '@vlcn.io/crsqlite-wasm': ^0.6.1
       eslint: ^8.32.0
       eslint-config-custom: workspace:*
       nuxt: ^3.1.0
@@ -76,6 +77,7 @@ importers:
       zod: ^3.20.2
     dependencies:
       '@fontsource/inter': 4.5.15
+      '@vlcn.io/crsqlite-wasm': 0.6.1
       socket.io-client: 4.5.4
       zod: 3.20.2
     devDependencies:
@@ -2613,6 +2615,19 @@ packages:
       vue: 3.2.45
     dev: true
 
+  /@vlcn.io/crsqlite-wasm/0.6.1:
+    resolution: {integrity: sha512-9OgRZPRySmcoe2gwbmV8NsablTx51Ml8Ut9It5EjGmOvZmkMoVFMaSsuoc3SbqbJvc2uD5YZrvMgfqoJ1sxZgA==}
+    dependencies:
+      '@vlcn.io/xplat-api': 0.6.1
+      comlink: 4.4.0
+    dev: false
+
+  /@vlcn.io/xplat-api/0.6.1:
+    resolution: {integrity: sha512-OOZrn7ahRwehaYsIauW8olfRrWZIlIU1Vp7y6gcWNRFhR5BbrDQOQ4A42quskwcbSsIL/zN6KhkG2StiqfsCBg==}
+    dependencies:
+      comlink: 4.4.0
+    dev: false
+
   /@vue/babel-helper-vue-transform-on/1.0.2:
     resolution: {integrity: sha512-hz4R8tS5jMn8lDq6iD+yWL6XNB699pGIVLk7WSJnn1dbpjaazsjZQkieJoRX6gW5zpYSCFqQ7jUquPNY65tQYA==}
     dev: true
@@ -3325,6 +3340,10 @@ packages:
   /colorette/2.0.19:
     resolution: {integrity: sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==}
     dev: true
+
+  /comlink/4.4.0:
+    resolution: {integrity: sha512-kId+c11FgiQdqMcgaBICxZ9UgQtE2xefMCmcpY/O9qGr0mRRN/8exnR4YcOCk2mVRPkTMiuPXvGt/vog+2nMfA==}
+    dev: false
 
   /commander/2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}

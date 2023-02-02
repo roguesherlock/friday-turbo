@@ -1,58 +1,61 @@
-import { z } from "zod"
 import { newWorkerConnection } from "~/lib/worker"
-//@ts-ignore
-const worker = new Worker(
-  new URL("../sqlite/sqlite-worker.js", import.meta.url),
-  {
-    type: "module",
-  }
-)
+import type {
+  DocumentAPI,
+  DocumentCreateArgs,
+  DocumentUpdateArgs,
+  DocumentDeleteArgs,
+  DocumentFindUniqueArgs,
+} from "~/lib/persistence"
+import "./sqlite"
 
-export const DocumentSchema = z.object({
-  id: z.string().uuid(),
-  title: z.string(),
-})
-
-export type DocumentType = z.infer<typeof DocumentSchema>
-export type DocumentCreateArgs = {
-  data: Partial<DocumentType>
+export interface Atom {
+  id: string
+  recordId: string
+  objectId: string
+  scopeId: string
+  attribute: string
+  value: any
 }
 
-export type DocumentUpdateArgs = {
-  data: Partial<DocumentType>
-  where: Partial<DocumentType>
+export interface Record {
+  id: string
+  recordId: string
+  packId: string
+  clock: string
+  deviceId: string
+  scopeId: string
+  type: number
+  ioDirection: number
+  ioState: number
 }
 
-export type DocumentDeleteArgs = {
-  where: Partial<DocumentType>
-}
+export interface VRecord extends Atom, Record {}
 
-export interface DocumentAPI {
-  "document.create": {
-    payload: DocumentCreateArgs
-    return: DocumentType
+export const initDB = async () => {
+  // //@ts-ignore
+  const worker = new Worker(
+    new URL("../sqlite/sqlite-worker.ts", import.meta.url),
+    {
+      type: "module",
+    }
+  )
+
+  const connection = newWorkerConnection<DocumentAPI>(worker)
+  connection.connect()
+
+  const findUniqueDocument = (data: DocumentFindUniqueArgs) =>
+    connection.send("document.find-unique", data)
+  const createDocument = (data: DocumentCreateArgs) =>
+    connection.send("document.create", data)
+  const updateDocument = (data: DocumentUpdateArgs) =>
+    connection.send("document.update", data)
+  const deleteDocument = (data: DocumentDeleteArgs) =>
+    connection.send("document.delete", data)
+
+  return {
+    findUniqueDocument,
+    createDocument,
+    updateDocument,
+    deleteDocument,
   }
-  "document.update": {
-    payload: DocumentUpdateArgs
-    return: DocumentType
-  }
-  "document.delete": {
-    payload: DocumentDeleteArgs
-    return: boolean
-  }
-}
-
-const connection = newWorkerConnection<DocumentAPI>(worker)
-
-export const createDocument = (data: DocumentCreateArgs) =>
-  connection.send("document.create", data)
-export const updateDocument = (data: DocumentUpdateArgs) =>
-  connection.send("document.update", data)
-export const deleteDocument = (data: DocumentDeleteArgs) =>
-  connection.send("document.delete", data)
-
-export const db = {
-  createDocument,
-  updateDocument,
-  deleteDocument,
 }

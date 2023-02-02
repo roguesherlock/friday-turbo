@@ -1,6 +1,7 @@
 export enum IO_TYPE {
   REQUEST = 0,
   RESPONSE,
+  DATA,
 }
 
 export enum IO_DIRECTION {

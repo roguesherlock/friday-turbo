@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     //     "Cross-Origin-Opener-Policy": "same-origin",
     //   },
     // },
+    assetsInclude: ["./lib/sqlite/sql/init.sql"],
     plugins: [
       {
         name: "configure-response-headers",
