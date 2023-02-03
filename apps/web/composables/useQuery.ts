@@ -5,7 +5,7 @@ type QueryContext = {
   meta: Record<string, unknown> | undefined
 }
 type MutationContext<T> = {
-  data: T
+  data: T | null | undefined
   meta: Record<string, unknown> | undefined
 }
 type QueryOptions<T> = {
@@ -28,6 +28,7 @@ export const useQuery = <T>({
   queryFn(context)
     .then((d) => {
       data.value = d
+      console.log("dd", data.value)
     })
     .catch((e: any) => {
       console.error(e)
@@ -38,10 +39,14 @@ export const useQuery = <T>({
 
   watch(
     data,
-    throttle((newVal) => {
-      const context = { data: newVal, meta }
-      mutationFn(context)
-    }, 3000),
+    debounce(
+      throttle((newVal) => {
+        if (!newVal) return
+        const context = { data: newVal, meta }
+        mutationFn(context)
+      }, 300),
+      300
+    ),
     {
       deep: true,
     }

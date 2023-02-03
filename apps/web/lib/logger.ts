@@ -11,23 +11,23 @@ export type loggerOptions = {
   level?: LEVEL
 }
 
-const defaultLogLevel: LEVEL = import.meta.env.dev
-  ? LogLevel.DEBUG
-  : LogLevel.INFO
+const defaultLogLevel: LEVEL = LogLevel.DEBUG
 const defaultOptions: loggerOptions = {
   level: defaultLogLevel,
 }
 const newLogger = ({ level }: loggerOptions = defaultOptions) => {
   const currentLogLevel = level ?? defaultLogLevel
   const log = (...args: any[]) => {
-    const level = args.at(-1) as unknown
+    const logOptions = args.at(-1) as unknown
     let num: LEVEL = LogLevel.DEBUG
     if (
-      level &&
-      typeof level === "string" &&
-      Object.keys(LogLevel).includes(level)
+      logOptions &&
+      typeof logOptions === "object" &&
+      logOptions.level &&
+      typeof logOptions.level === "string" &&
+      Object.keys(LogLevel).includes(logOptions.level)
     ) {
-      num = LogLevel[level as keyof typeof LogLevel]
+      num = LogLevel[logOptions.level as keyof typeof LogLevel]
     }
     if (num <= currentLogLevel) {
       console.log(...args)

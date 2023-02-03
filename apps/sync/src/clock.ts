@@ -85,6 +85,15 @@ function max<T>(...args: T[]) {
   return args.reduce((pMax, curr) => (pMax > curr ? pMax : curr), args[0])
 }
 
+export const maxClock = (a: string, b: string) => {
+  let clock1 = newClock(a)
+  let clock2 = newClock(b)
+  // sort desc
+  return clock1.timestamp > clock2.timestamp && clock1.counter > clock2.counter
+    ? -1
+    : 1
+}
+
 export function newClock(clockString?: string): Clock {
   if (clockString) {
     const [t, c] = clockString.split("_").map((d) => Number(d))

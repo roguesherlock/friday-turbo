@@ -9,3 +9,13 @@ export const throttle = (func: Fn, timeFrame: number) => {
     }
   }
 }
+
+export const debounce = (func: Fn, timeFrame: number) => {
+  let timeoutId: number | null = null
+  return (...args: any[]) => {
+    timeoutId && window.clearTimeout(timeoutId)
+    timeoutId = window.setTimeout(() => {
+      func(...args)
+    }, timeFrame)
+  }
+}

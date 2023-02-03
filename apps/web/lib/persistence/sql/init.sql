@@ -2,13 +2,13 @@ CREATE TABLE IF NOT EXISTS "atoms" (
   "id" INTEGER NOT NULL,
   "recordId" BLOB NOT NULL,
   "scopeId" BLOB,
-  "objectId" BLOB NOT NULL,
+  "documentId" BLOB NOT NULL,
   "attribute" TEXT NOT NULL,
   "value" BLOB,
   "hint" TEXT,
   PRIMARY KEY("id")
 );
-CREATE INDEX index_atoms_on_scopeid_objectid_attribute on "atoms"(scopeId, objectId, attribute);
+CREATE INDEX index_atoms_on_scopeid_documentId_attribute on "atoms"(scopeId, documentId, attribute);
 CREATE INDEX index_atoms_on_recordid on "atoms"(recordId);
 CREATE TABLE IF NOT EXISTS "blobs" (
   "id" INTEGER NOT NULL,
@@ -46,7 +46,7 @@ CREATE INDEX index_records_on_iodirection_iostate on "records"(ioDirection, ioSt
 CREATE INDEX index_records_on_clock on "records"(clock);
 -- CREATE VIEW "vRecords" AS
 -- SELECT "records".*,
---   "objectId",
+--   "documentId",
 --   "attribute",
 --   "ivalue",
 --   "dvalue",

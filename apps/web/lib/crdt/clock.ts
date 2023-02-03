@@ -85,11 +85,24 @@ function max<T>(...args: T[]) {
   return args.reduce((pMax, curr) => (pMax > curr ? pMax : curr), args[0])
 }
 
+export const maxClock = (a: string, b: string) => {
+  const [t1, c1] = a.split("_").map((d) => Number(d))
+  const [t2, c2] = a.split("_").map((d) => Number(d))
+  // sort desc
+  return t1 > t2 && c1 > c2 ? -1 : 1
+  // const clock1 = newClock(a)
+  // const clock2 = newClock(b)
+  // // sort desc
+  // return clock1.timestamp > clock2.timestamp && clock1.counter > clock2.counter
+  //   ? -1
+  //   : 1
+}
+
 export function newClock(clockString?: string): Clock {
   if (clockString) {
     const [t, c] = clockString.split("_").map((d) => Number(d))
-    if (t && c) return new Clock(t, c)
-    else throw new Error("Invalid clock string")
+    if (isNaN(t) || isNaN(c)) throw new Error("Invalid clock string")
+    return new Clock(t, c)
   }
   return new Clock()
 }

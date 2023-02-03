@@ -1,14 +1,20 @@
 import type { DocumentType } from "~~/lib/persistence"
+import { findUniqueDocument, updateDocument } from "~~/lib/persistence"
 export const useDocument = (id: string) => {
-  const { $db } = useNuxtApp()
-  const { isLoading, data, error } = useQuery<DocumentType>({
+  const { isLoading, data, error } = useQuery<
+    Required<DocumentType> | null | undefined
+  >({
     queryKey: [id],
     queryFn: ({ queryKey }) =>
-      $db.findUniqueDocument({
-        where: { id: queryKey[0] as string },
+      findUniqueDocument({
+        where: { documentId: queryKey[0] as string },
       }),
-    mutationFn: ({ data }) =>
-      $db.updateDocument({ data: data, where: { id: data.id } }),
+    mutationFn: ({ data }) => {
+      if (data) {
+        return updateDocument({ data, where: { documentId: data.documentId } })
+      }
+      return Promise.resolve(null)
+    },
   })
   return {
     isLoading,
