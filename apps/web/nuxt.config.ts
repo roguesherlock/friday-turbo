@@ -50,8 +50,12 @@ export default defineNuxtConfig({
       // Prevent arbitrary zooming on mobile devices
       viewport:
         "width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover",
+      htmlAttrs: {
+        class: "h-full dark",
+      },
       bodyAttrs: {
-        class: "overflow-x-hidden",
+        class:
+          "overflow-x-hidden h-full bg-gray-1 dark:bg-grayDark-1 text-gray-11 dark:text-grayDark-11",
       },
     },
   },
